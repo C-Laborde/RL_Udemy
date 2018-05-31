@@ -1,5 +1,4 @@
 import numpy as np
-import random
 import matplotlib.pyplot as plt
 
 
@@ -10,6 +9,7 @@ class Bandit:
         m = true mean
         mean = estimate of the bandit mean
         N = nr of arm pulls
+        upper_limit = initial value for the reward
         """
         self.m = m
         self.mean = upper_limit
