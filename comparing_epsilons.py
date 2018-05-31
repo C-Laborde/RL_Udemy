@@ -76,9 +76,9 @@ if __name__ == "__main__":
     N = 100000
 
     plt.figure()
-    exp1 = run_experiment(1.0, 2.0, 3.0, 0.1, N)
-    exp2 = run_experiment(1.0, 2.0, 3.0, 0.05, N)
-    exp3 = run_experiment(1.0, 2.0, 3.0, 0.01, N)
+    exp1 = run_experiment(2.0, 2.0, 1.0, 0.1, N)
+    exp2 = run_experiment(2.0, 2.0, 1.0, 0.05, N)
+    exp3 = run_experiment(2.0, 2.0, 1.0, 0.01, N)
     plt.xscale('log')
     plt.legend()
     plt.show()
