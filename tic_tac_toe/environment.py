@@ -3,7 +3,7 @@ import numpy as np
 
 class Environment:
     def __init__(self):
-        self.game_over = False
+        self.ended = False
         self.length = 3
         self.board = np.zeros(self.length, self.length)
         self.x = 1   # represents and x on the board, player 1
@@ -58,6 +58,11 @@ class Environment:
 
     def is_empty(self, i, j):
         return self.board[i, j] == 0
-    
-    def reward(self, symbol):
-        return
+
+    def reward(self, sym):
+        # No reward until the game is over
+        if not self.game_over():
+            return 0
+        # If we get here, game is over
+        # sym will be self.x o self.o
+        return 1 if self.winner == sym else 0
