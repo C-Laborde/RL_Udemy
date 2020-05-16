@@ -25,13 +25,30 @@ class Environment:
 
     def get_state(self):
         # base 3 representation of the state
+        # This only works with self.x 1 y self.o2
         k = 0
         hash_ = 0
         for i in range(self.length):
             for j in range(self.length):
                 v = self.board[i, j]
                 hash_ += (3**k) * v
-                k += 2
+                k += 1
+        return hash_
+
+    def get_state_course(self):
+        # base 3 representation of the state
+        k = 0
+        hash_ = 0
+        for i in range(self.length):
+            for j in range(self.length):
+                if self.board[i, j] == 0:
+                    v = 0
+                elif self.board[i, j] == self.x:
+                    v = 1
+                if self.board[i, j] == self.o:
+                    v = 2
+                hash_ += (3**k) * v
+                k += 1
         return hash_
 
     def winner_exists(self):
