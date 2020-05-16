@@ -16,13 +16,24 @@ class Environment:
     def game_over(self, force_recalculate=False):
         if not force_recalculate and self.ended:
             return self.ended
-
+        # TODO I'm not checking anywhere if there's a draw!
         if 0 not in self.board or self.winner_exists():
             return True
         return False
 
     def draw_board(self):
-        return None
+        for i in range(self.length):
+            print("--------------")
+            for j in range(self.length):
+                print(" ")
+                if self.board[i, j] == self.x:
+                    print("x")
+                elif self.board[i, j] == self.o:
+                    print("o")
+                else:
+                    print(" ")
+            print("")
+        print("--------------")
 
     def get_state(self):
         # base 3 representation of the state
