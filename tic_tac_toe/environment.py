@@ -7,11 +7,14 @@ class Environment:
                       [0, 0, 0]]
         self.x = 1
         self.o = 2
+        self.winner = None
         # self.map = {0: 0, "x": 1, "o": 2}
         self.state = None
 
     def game_over(self, force_recalculate=False):
-        if 0 not in self.board or self.winner_exists()[1]:
+        if not force_recalculate:
+            return self.game_over
+        if 0 not in self.board or self.winner_exists():
             return True
         return False
 
@@ -30,23 +33,29 @@ class Environment:
         return hash_
 
     def winner_exists(self):
-        found_winner = False
-        winner = None
-        while not found_winner:
+        winner_exists = False
+        while not winner_exists:
             for i in range(self.lenght):
                 if len(set(self.board[i])) == 1:
-                    winner = set(self.board[i])
-                    found_winner = True
+                    self.winner = set(self.board[i])
+                    winner_exists = True
                     break
             for i in range(self.lenght):
                 if len(set(self.board[:, i])) == 1:
-                    winner = set(self.board[:, i])
-                    found_winner = True
+                    self.winner = set(self.board[:, i])
+                    winner_exists = True
                     break
             if self.board[0, 0] == self.board[2, 2] == self.board[2, 2]:
-                winner = self.board[0, 0]
-                found_winner = True
+                self.winner = self.board[0, 0]
+                winner_exists = True
             if self.board[0, 2] == self.board[2, 2] == self.board[2, 0]:
-                winner = self.board[0, 2]
-                found_winner = True
-        return (winner, found_winner)
+                self.winner = self.board[0, 2]
+                winner_exists = True
+        self.game_over = winner_exists
+        return winner_exists
+
+    def is_empty(self, i, j):
+        return
+    
+    def reward(self, symbol):
+        return
