@@ -14,8 +14,9 @@ class Environment:
         self.num_states = 3 ** (self.length * self.length)
 
     def game_over(self, force_recalculate=False):
-        if not force_recalculate:
-            return self.game_over
+        if not force_recalculate and self.ended:
+            return self.ended
+
         if 0 not in self.board or self.winner_exists():
             return True
         return False
@@ -72,6 +73,42 @@ class Environment:
                 winner_exists = True
         self.game_over = winner_exists
         return winner_exists
+
+    def winner_exists_course(self):
+        # This works with self.x = 1 and self.o = -1
+        for i in range(self.length):
+            for player in (self.x, self.o):
+                if self.board[i].sum() == player * self.length():
+                    self.winner = player
+                    self.ended = True
+                    return True
+
+        for j in range(self.length):
+            for player in (self.x, self.o):
+                if self.board[:, j].sum() == player * self.length:
+                    self.winner = player
+                    self.ended = True
+                    return True
+
+        for player in (self.x, self.o):
+            if self.board.trace() == player * self.lenght:
+                self.winner = player
+                self.ended = True
+                return True
+
+            if np.fliplr(self.board).trace() == player * self.length():
+                self.winner = player
+                self.ended = True
+                return True
+        
+        if np.all((self.board == 0) == False):
+            self.winner = None
+            self.ended = True
+            return True
+        
+        self.winner = None
+        return False
+
 
     def is_empty(self, i, j):
         return self.board[i, j] == 0
