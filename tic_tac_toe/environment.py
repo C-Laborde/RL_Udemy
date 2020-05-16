@@ -1,15 +1,17 @@
+import numpy as np
+
+
 class Environment:
     def __init__(self):
         self.game_over = False
         self.length = 3
-        self.board = [[0, 0, 0],
-                      [0, 0, 0],
-                      [0, 0, 0]]
-        self.x = 1
-        self.o = 2
+        self.board = np.zeros(self.length, self.length)
+        self.x = 1   # represents and x on the board, player 1
+        self.o = -1  # represents and o on the board, player 2
         self.winner = None
         # self.map = {0: 0, "x": 1, "o": 2}
         self.state = None
+        self.num_states = 3 ** (self.length * self.length)
 
     def game_over(self, force_recalculate=False):
         if not force_recalculate:
@@ -55,7 +57,7 @@ class Environment:
         return winner_exists
 
     def is_empty(self, i, j):
-        return
+        return self.board[i, j] == 0
     
     def reward(self, symbol):
         return
