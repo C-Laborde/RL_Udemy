@@ -7,7 +7,7 @@ def play_game(p1, p2, env, draw=False):
         if current_player == p1:
             current_player = p2
         else:
-            current_player == p1
+            current_player = p1
 
         # draw the board before the user who wants to see it makes a move
         # display what places are occupied and by what pieces
@@ -16,9 +16,9 @@ def play_game(p1, p2, env, draw=False):
                 env.draw_board()
             if draw == 2 and current_player == p2:
                 env.draw_board()
-       
+
         # current player makes a move
-        current_player.take_action()
+        current_player.take_action(env)
 
         # update state histories
         state = env.get_state()
