@@ -59,17 +59,23 @@ class Environment:
 
     def draw_board(self):
         for i in range(LENGTH):
-            print("--------------")
+            print("-----------------")
             for j in range(LENGTH):
-                print(" ")
-                if self.board[i, j] == self.x:
-                    print("x")
-                elif self.board[i, j] == self.o:
-                    print("o")
+                # print(" ", end="")
+                if self.board[i, j] == self.x and j != 2:
+                    print("  x  |", end="")
+                elif self.board[i, j] == self.x and j == 2:
+                    print("  x  ", end="")
+                elif self.board[i, j] == self.o and j != 2:
+                    print("  o  |", end="")
+                elif self.board[i, j] == self.o and j == 2:
+                    print("  o  ", end="")
+                elif j != 2:
+                    print("     |", end="")
                 else:
-                    print(" ")
+                    print("    ", end="")
             print("")
-        print("--------------")
+        print("-----------------")
 
     def get_state(self):
         # base 3 representation of the state
