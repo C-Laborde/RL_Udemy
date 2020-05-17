@@ -2,6 +2,15 @@ class Player:
     def __init__(self):
         self.turn = 1
 
+    def setV(self, V):
+        return
+    
+    def set_symbol(self, symbol):
+        return
+    
+    def reset_history(self):
+        return
+    
     def take_action(self, env):
         return "do something on the env"
 
