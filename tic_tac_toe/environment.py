@@ -1,17 +1,17 @@
 import numpy as np
+from config import LENGTH
 
 
 class Environment:
     def __init__(self):
         self.ended = False
-        self.length = 3
-        self.board = np.zeros(self.length, self.length)
+        self.board = np.zeros(LENGTH, LENGTH)
         self.x = 1   # represents and x on the board, player 1
         self.o = -1  # represents and o on the board, player 2
         self.winner = None
         # self.map = {0: 0, "x": 1, "o": 2}
         self.state = None
-        self.num_states = 3 ** (self.length * self.length)
+        self.num_states = 3 ** (LENGTH * LENGTH)
 
     def game_over(self, force_recalculate=False):
         if not force_recalculate and self.ended:
@@ -22,9 +22,9 @@ class Environment:
         return False
 
     def draw_board(self):
-        for i in range(self.length):
+        for i in range(LENGTH):
             print("--------------")
-            for j in range(self.length):
+            for j in range(LENGTH):
                 print(" ")
                 if self.board[i, j] == self.x:
                     print("x")
@@ -40,8 +40,8 @@ class Environment:
         # This only works with self.x 1 y self.o2
         k = 0
         hash_ = 0
-        for i in range(self.length):
-            for j in range(self.length):
+        for i in range(LENGTH):
+            for j in range(LENGTH):
                 v = self.board[i, j]
                 hash_ += (3**k) * v
                 k += 1
@@ -51,8 +51,8 @@ class Environment:
         # base 3 representation of the state
         k = 0
         hash_ = 0
-        for i in range(self.length):
-            for j in range(self.length):
+        for i in range(LENGTH):
+            for j in range(LENGTH):
                 if self.board[i, j] == 0:
                     v = 0
                 elif self.board[i, j] == self.x:
@@ -87,16 +87,16 @@ class Environment:
 
     def winner_exists_course(self):
         # This works with self.x = 1 and self.o = -1
-        for i in range(self.length):
+        for i in range(LENGTH):
             for player in (self.x, self.o):
-                if self.board[i].sum() == player * self.length():
+                if self.board[i].sum() == player * LENGTH():
                     self.winner = player
                     self.ended = True
                     return True
 
-        for j in range(self.length):
+        for j in range(LENGTH):
             for player in (self.x, self.o):
-                if self.board[:, j].sum() == player * self.length:
+                if self.board[:, j].sum() == player * LENGTH:
                     self.winner = player
                     self.ended = True
                     return True
@@ -107,19 +107,18 @@ class Environment:
                 self.ended = True
                 return True
 
-            if np.fliplr(self.board).trace() == player * self.length():
+            if np.fliplr(self.board).trace() == player * LENGTH():
                 self.winner = player
                 self.ended = True
                 return True
-        
+
         if np.all((self.board == 0) == False):
             self.winner = None
             self.ended = True
             return True
-        
+
         self.winner = None
         return False
-
 
     def is_empty(self, i, j):
         return self.board[i, j] == 0
