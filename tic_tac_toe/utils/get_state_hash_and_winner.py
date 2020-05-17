@@ -1,4 +1,4 @@
-def get_state_hash_and_winner(env, i, j):
+def get_state_hash_and_winner(env, i=0, j=0):
     """
     i, j = coordinates on the board where to place the next value
     """
